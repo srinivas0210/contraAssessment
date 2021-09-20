@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
-import "./App.css";
+import './App.css'
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
 
 
 const fetchUserProfile = (userId) => {
-  let status = "pending"
+  let status = "pending";
   let result;
 
   let promise = new Promise((resolve) => {
@@ -44,9 +44,12 @@ const fetchUserProfile = (userId) => {
   };
 };
 
-
 const SuspensefulUserProfile = ({ userId }) => {
-  let resource = fetchUserProfile(userId);
+  const [resource, setResource] = useState(fetchUserProfile(userId))
+
+  useEffect(() => {
+    setResource(fetchUserProfile(userId))
+  }, [userId])
 
   return (
     <Suspense fallback={<div> loading...</div>}>
